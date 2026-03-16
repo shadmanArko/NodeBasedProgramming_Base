@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using _Scripts.Config;
 using _Scripts.Core;
 using _Scripts.Events;
 using _Scripts.Models;
@@ -12,6 +13,7 @@ namespace _Scripts.Services.Execution
     {
         private readonly IGraphModel _model;
         private readonly IEventBus _eventBus;
+        private readonly NodeGraphConfig _config;
 
         private Dictionary<(string blockId, string port), BlockConnection> _inputIndex;
         private Dictionary<(string blockId, string port), List<(BaseBlock, string)>> _flowIndex;
@@ -19,17 +21,16 @@ namespace _Scripts.Services.Execution
         private int _depth;
 
         public int ExecutionDepth => _depth;
-        public int MaxExecutionDepth { get; }
-
+        public int MaxExecutionDepth => _config.maxExecutionDepth;
 
         public GraphExecutionService(
             IGraphModel model,
             IEventBus eventBus,
-            int maxExecutionDepth)
+            NodeGraphConfig config)
         {
             _model = model;
             _eventBus = eventBus;
-            MaxExecutionDepth = maxExecutionDepth;
+            _config = config;
         }
 
 
@@ -67,6 +68,9 @@ namespace _Scripts.Services.Execution
 
             foreach (var block in entryBlocks)
             {
+                if (_config.verboseLogging)
+                    Debug.Log($"[NodeGraph] Entry: {block.name} ({block.BlockType})");
+
                 block.Execute(this);
             }
 
