@@ -1,3 +1,4 @@
+using System;
 using _Scripts.Events;
 using _Scripts.Models;
 using _Scripts.Services.Execution;
@@ -18,7 +19,7 @@ namespace _Scripts.Controllers
         private readonly IBlockFactoryService _blockFactory;
         private readonly IEventBus _eventBus;
         private readonly GraphView _view;
-        private readonly CompositeDisposable _disposables = new CompositeDisposable();
+        private readonly CompositeDisposable _disposables;
 
         public GraphController(
             IGraphModel model,
@@ -26,7 +27,8 @@ namespace _Scripts.Controllers
             IGraphSerializationService serializationService,
             IBlockFactoryService blockFactory,
             IEventBus eventBus,
-            GraphView view)
+            GraphView view, 
+            CompositeDisposable disposables)
         {
             _model = model;
             _executionService = executionService;
@@ -34,6 +36,7 @@ namespace _Scripts.Controllers
             _blockFactory = blockFactory;
             _eventBus = eventBus;
             _view = view;
+            _disposables = disposables;
         }
         
         public void Initialize()
@@ -43,9 +46,11 @@ namespace _Scripts.Controllers
             BindEventBus();
             UnityEngine.Debug.Log("[GraphController] Initialized — all bindings active.");
         }
-        
-        public void Dispose() => _disposables.Dispose();
-        
+
+        public void Dispose()
+        {
+        }
+
         private void BindModelToView()
         {
             _model.StatusMessage
