@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using _Scripts.Config;
 using _Scripts.Core;
 using UniRx;
 using UnityEngine;
@@ -25,10 +26,15 @@ namespace _Scripts.Models
         public IReadOnlyReactiveCollection<BaseBlock> Blocks => _blocks;
         public IReadOnlyReactiveCollection<BlockConnection> Connections => _connections;
 
+        public GraphModel(NodeGraphConfig config)
+        {
+            _clearOnRun.Value = config.clearOnRun;
+            _jsonPath.Value = config.defaultJsonPath;
+        }
+        
         public BaseBlock GetBlock(string blockId) => _blocks.FirstOrDefault(b => b != null && b.blockId == blockId);
         public IReadOnlyList<GameObject> GetRuntimeObjects() => _runtimeObjects;
-
-
+        
         public void AddBlock(BaseBlock block)
         {
             if (block == null) return;
