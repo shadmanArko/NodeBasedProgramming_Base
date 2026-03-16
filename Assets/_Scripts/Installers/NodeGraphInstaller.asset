@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f179651bd706471b8e6307d4e126a46, type: 3}
   m_Name: NodeGraphInstaller
   m_EditorClassIdentifier: Assembly-CSharp::_Scripts.Installers.NodeGraphInstaller
-  graphConfig: {fileID: 0}
-  graphView: {fileID: 0}
+  graphConfig: {fileID: 11400000, guid: 2992107d2e4fd4156a4d94cf69cf3b88, type: 2}
+  graphView: {fileID: 219454504266982130, guid: 5a1d2cd228f944b1c959e73fe6815234, type: 3}
   runtimeBridge: {fileID: 0}
