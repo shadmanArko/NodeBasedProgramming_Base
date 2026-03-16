@@ -18,7 +18,6 @@ namespace _Scripts.Installers
     {
         [SerializeField] private NodeGraphConfig graphConfig;
         [SerializeField] private GraphView graphView;
-        [SerializeField] private GraphRuntimeBridge runtimeBridge;
 
         public override void InstallBindings()
         {
